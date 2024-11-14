@@ -1,0 +1,42 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg" style="width: 40%;">
+        <div class="card-body px-4 py-5">
+            <div class="text-center mb-4">
+                <fa-icon [icon]="faLock" class="fa-3x text-primary"></fa-icon>
+            </div>
+            <div class="text-center mb-4">
+                <h2 class="fw-bold" style="font-size: 2rem;">Welcome</h2>
+                <p class="text-muted" style="font-size: 1.1rem;">Please enter your login details</p>
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <!-- Email Input Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label" style="font-size: 1.1rem;">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" 
+                           class="form-control" formControlName="email" required/>
+                    <!-- Email Error Message -->
+                    <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
+                        <small *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</small>
+                        <small *ngIf="loginForm.controls['email'].errors?.['email']">Enter a valid email address.</small>
+                    </div>
+                </div>
+
+                <!-- Password Input Field -->
+                <div class="mb-4">
+                    <label for="password" class="form-label" style="font-size: 1.1rem;">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" 
+                           class="form-control" formControlName="password" required/>
+                    <!-- Password Error Message -->
+                    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="text-danger">
+                        <small>Password is required.</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" style="font-size: 1.1rem;">Login</button>
+            </form>
+        </div>
+        <!-- <div class="card-footer text-center">
+            <small><a routerLink="../forgot-password" class="text-decoration-none" style="font-size: 1rem;">Forgot Password?</a></small>
+        </div> -->
+    </div>
+</div>

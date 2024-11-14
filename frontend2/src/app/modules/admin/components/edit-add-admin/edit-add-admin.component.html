@@ -1,0 +1,192 @@
+<div mat-dialog-title>
+    <h6>{{data ? 'Update User' : 'Save'}}</h6>
+</div>
+
+<!-- Create User Form -->
+<form *ngIf="!data" [formGroup]="createUserForm" (ngSubmit)="OnFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" placeholder="Ex. John@doa.yaml" formControlName="email">
+                    <mat-error *ngIf="submitted && createUserForm.get('email')?.hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="submitted && createUserForm.get('email')?.hasError('email')">
+                        Please enter a valid email
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput type="text" placeholder="Ex. John" formControlName="firstname">
+                    <mat-error *ngIf="submitted && createUserForm.get('firstname')?.hasError('required')">
+                        Firstname is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput type="text" placeholder="Ex. Doe" formControlName="lastname">
+                    <mat-error *ngIf="submitted && createUserForm.get('lastname')?.hasError('required')">
+                        Lastname is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input matInput type="text" placeholder="Ex. +123456789" formControlName="phone">
+                    <mat-error *ngIf="submitted && createUserForm.get('phone')?.hasError('required')">
+                        Phone number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Post</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option value="ADMIN">Admin</mat-option>
+                        <mat-option value="MANAGER">Manager</mat-option>
+                        <mat-option value="EMPLOYEE">Employee</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="submitted && createUserForm.get('role')?.hasError('required')">
+                        Role is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5" *ngIf="isEmployee">
+                <mat-form-field appearance="outline">
+                    <mat-label>Job Type</mat-label>
+                    <mat-select formControlName="title">
+                        <mat-option value="DEVELOPER">Developer</mat-option>
+                        <mat-option value="TESTER">Tester</mat-option>
+                        <mat-option value="DESIGNER">Designer</mat-option>
+                        <mat-option value="SYSTEM_ADMINISTRATOR">System Administrator</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Enter your password" formControlName="password">
+                    <mat-error *ngIf="submitted && createUserForm.get('password')?.hasError('required')">
+                        Password is required
+                    </mat-error>
+                    <mat-error *ngIf="submitted && createUserForm.get('password')?.hasError('minlength')">
+                        Password must be at least 6 characters long
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" placeholder="Confirm your password" formControlName="confirmPassword">
+                    <mat-error *ngIf="submitted && createUserForm.hasError('mismatch')">
+                        Passwords do not match
+                    </mat-error>
+                    <mat-error *ngIf="submitted && createUserForm.get('confirmPassword')?.hasError('required')">
+                        Confirm Password is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" class="save" type="submit">Save</button>
+    </div>
+</form>
+
+<!-- Update User Form -->
+<form *ngIf="data" [formGroup]="updateUserForm" (ngSubmit)="OnFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" placeholder="Ex. John@doa.yaml" formControlName="email">
+                    <mat-error *ngIf="submitted && updateUserForm.get('email')?.hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="submitted && updateUserForm.get('email')?.hasError('email')">
+                        Please enter a valid email
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput type="text" placeholder="Ex. John" formControlName="firstname">
+                    <mat-error *ngIf="submitted && updateUserForm.get('firstname')?.hasError('required')">
+                        Firstname is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput type="text" placeholder="Ex. Doe" formControlName="lastname">
+                    <mat-error *ngIf="submitted && updateUserForm.get('lastname')?.hasError('required')">
+                        Lastname is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input matInput type="text" placeholder="Ex. +123456789" formControlName="phone">
+                    <mat-error *ngIf="submitted && updateUserForm.get('phone')?.hasError('required')">
+                        Phone number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Post</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option value="ADMIN">Admin</mat-option>
+                        <mat-option value="MANAGER">Manager</mat-option>
+                        <mat-option value="EMPLOYEE">Employee</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="submitted && updateUserForm.get('role')?.hasError('required')">
+                        Role is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5" *ngIf="isEmployee">
+                <mat-form-field appearance="outline">
+                    <mat-label>Job Type</mat-label>
+                    <mat-select formControlName="title">
+                        <mat-option value="DEVELOPER">Developer</mat-option>
+                        <mat-option value="TESTER">Tester</mat-option>
+                        <mat-option value="DESIGNER">Designer</mat-option>
+                        <mat-option value="SYSTEM_ADMINISTRATOR">System Administrator</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" class="save" type="submit">Update</button>
+    </div>
+</form>

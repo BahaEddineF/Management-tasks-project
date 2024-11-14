@@ -1,0 +1,25 @@
+.action{
+    padding-bottom: 20px;
+    button{
+        flex: 1;
+    }
+    .save{
+        color: white;
+        background-color: #005cbb;
+    }
+}
+
+.mat-mdc-dialog-actions {
+    display: flex;
+    position: relative;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    min-height: 52px;
+    margin: 0;
+    padding: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    padding: var(--mat-dialog-actions-padding, 8px);
+}

@@ -1,0 +1,24 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg" style="width: 40%;">
+        <div class="card-body px-4 py-5">
+            <div class="text-center mb-4">
+                <fa-icon [icon]="faLock" class="fa-3x text-primary"></fa-icon>
+            </div>
+            <div class="text-center mb-4">
+                <h2 class="fw-bold" style="font-size: 2rem;">Email 2FA</h2>
+                <div *ngIf="email">
+                    <p class="text-muted" style="font-size: 1.1rem;">Verification email sent to: {{ email }}</p>
+                </div>
+            </div>
+            <p class="text-muted" style="font-size: 1.1rem;">Please enter your Verification Code</p>
+            <form (ngSubmit)="verifyCode()">
+                <div class="mb-4">
+                    <label for="code" class="form-label" style="font-size: 1.1rem;">Verification Code</label>
+                    <input type="text" id="code" placeholder="Enter verification code" class="form-control"
+                           [(ngModel)]="code" name="code" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100" style="font-size: 1.1rem;">Verify</button>
+            </form>
+        </div>
+    </div>
+</div>

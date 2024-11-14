@@ -1,0 +1,26 @@
+mat-toolbar{
+    position: relative;
+    z-index: 5;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 64px);
+  }
+
+
+.content{
+    padding: 24px;
+}
+
+
+mat-sidenav,
+mat-sidenav-content{
+    
+    transition: all 500ms ease-in-out;
+}
+
+mat-sidenav {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Adjust shadow values as needed */
+    z-index: 10; /* Ensure it's above other content */
+    border-radius: 0%;
+  }
