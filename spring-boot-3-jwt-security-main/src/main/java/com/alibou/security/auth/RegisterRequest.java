@@ -1,7 +1,7 @@
 package com.alibou.security.auth;
 
 import com.alibou.security.user.Role;
-import com.alibou.security.user.subclasses.Title;
+import com.alibou.security.user.subclasses.employee.Title;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

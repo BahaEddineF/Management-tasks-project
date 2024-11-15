@@ -1,7 +1,7 @@
 package com.alibou.security.user;
 
 import com.alibou.security.DTO.UserRequestDTO;
-import com.alibou.security.user.subclasses.Title;
+import com.alibou.security.user.subclasses.employee.Title;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

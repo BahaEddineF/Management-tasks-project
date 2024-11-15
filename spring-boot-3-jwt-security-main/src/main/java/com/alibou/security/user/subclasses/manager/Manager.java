@@ -1,4 +1,4 @@
-package com.alibou.security.user.subclasses;
+package com.alibou.security.user.subclasses.manager;
 
 
 import com.alibou.security.project.Project;
@@ -8,7 +8,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

@@ -1,7 +1,6 @@
-package com.alibou.security.user.subclasses;
+package com.alibou.security.user.subclasses.employee;
 
 import com.alibou.security.DTO.UserRequestDTO;
-import com.alibou.security.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package com.alibou.security.DTO;
 
 import com.alibou.security.project.Project;
 import com.alibou.security.status.Status;
-import com.alibou.security.user.subclasses.Manager;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;

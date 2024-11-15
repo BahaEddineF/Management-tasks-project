@@ -1,4 +1,4 @@
-package com.alibou.security.user.subclasses;
+package com.alibou.security.user.subclasses.employee;
 
 import com.alibou.security.DTO.UserRequestDTO;
 import lombok.RequiredArgsConstructor;

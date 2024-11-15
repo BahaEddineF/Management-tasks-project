@@ -2,7 +2,7 @@ package com.alibou.security.project;
 
 
 import com.alibou.security.status.Status;
-import com.alibou.security.user.subclasses.Manager;
+import com.alibou.security.user.subclasses.manager.Manager;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +35,8 @@ public class Project {
     @Enumerated(EnumType.STRING)
     @NotNull
     private Status status;
+
+
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Manager manager;

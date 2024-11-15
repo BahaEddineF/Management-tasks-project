@@ -2,8 +2,8 @@ package com.alibou.security.DTO;
 
 import com.alibou.security.user.Role;
 import com.alibou.security.user.User;
-import com.alibou.security.user.subclasses.Employee;
-import com.alibou.security.user.subclasses.Title;
+import com.alibou.security.user.subclasses.employee.Employee;
+import com.alibou.security.user.subclasses.employee.Title;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
