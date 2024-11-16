@@ -50,6 +50,8 @@ public class ProjectController {
         return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(projectService.getProjectByTitle(title)),HttpStatus.OK);
     }
 
+
+
     @PutMapping("{id}")
     public  ResponseEntity<ProjectRequestDTO> updateById(@PathVariable Integer id,@RequestBody Project project){
         return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(projectService.updateProjectById(id,project)),HttpStatus.OK);
@@ -59,6 +61,12 @@ public class ProjectController {
     public  ResponseEntity<ProjectRequestDTO> updateByTitle(@PathVariable String title,@RequestBody Project project){
         return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(projectService.updateProjectByTitle(title,project)),HttpStatus.OK);
     }
+    @PutMapping("/title/foranager/{title}")
+    public  ResponseEntity<ProjectRequestDTO> updateByTitleForManager(@PathVariable String title,@RequestBody Project project){
+        return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(projectService.updateProjectByTitleForManager(title,project)),HttpStatus.OK);
+    }
+
+
 
 
     @DeleteMapping("{id}")
@@ -74,9 +82,9 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/manager/{managerId}")
-    public ResponseEntity<List<ProjectRequestDTO>> getProjectsByManager(@PathVariable Integer managerId) {
-        List<Project> projects= projectService.getProjectsByManagerId(managerId);
+    @GetMapping("/manager/{managerEmail}")
+    public ResponseEntity<List<ProjectRequestDTO>> getProjectsByManager(@PathVariable String managerEmail) {
+        List<Project> projects= projectService.getProjectsByManagerEmail(managerEmail);
         List<ProjectRequestDTO> dtos = new ArrayList<>();
         for(Project project : projects){
             dtos.add(ProjectRequestDTO.mapper(project));

@@ -48,6 +48,11 @@ public class ProjectService {
         existingProject.setStatus(updatedProject.getStatus());
         return projectRepository.save(existingProject);
     }
+    public Project updateProjectByTitleForManager(String title, Project updatedProject) {
+        Project existingProject = projectRepository.findByTitle(title).get();
+        existingProject.setStatus(updatedProject.getStatus());
+        return projectRepository.save(existingProject);
+    }
 
 
 
@@ -59,8 +64,8 @@ public class ProjectService {
         projectRepository.deleteByTitle(title);
     }
 
-    public List<Project> getProjectsByManagerId(Integer managerId) {
-        return projectRepository.findByManagerId(managerId);
+    public List<Project> getProjectsByManagerEmail(String email) {
+        return projectRepository.findByManagerEmail(email);
     }
 
 

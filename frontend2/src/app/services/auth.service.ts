@@ -22,6 +22,9 @@ export class AuthService {
   setUserRole(){
     localStorage.setItem('user_role',this.getDecodedToken().role)
   }
+  setUserEmail(){
+    localStorage.setItem('user_email',this.getDecodedToken().sub)
+  }
 
   private decodeToken(token: string): any {
     const payload = token.split('.')[1];

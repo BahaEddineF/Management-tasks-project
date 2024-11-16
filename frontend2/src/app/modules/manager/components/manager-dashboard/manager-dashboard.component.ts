@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ManagerDashboardComponent {
 
+  collapsed = signal(false)
+
+  sidenavWidth = computed(()=> this.collapsed() ? '65px' : '250px');
 }

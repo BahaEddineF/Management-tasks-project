@@ -30,6 +30,7 @@ export class VerifyEmailComponent {
           if (response.access_token) {
             this.authService.setToken(response.access_token,response.refresh_token);
             this.authService.setUserRole()
+            this.authService.setUserEmail()
              // Store JWT token
             this.authService.navigateToDashboard(); // Redirect to the appropriate dashboard
           }

@@ -14,4 +14,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
 
     List<Project> findByManagerId(Integer managerId);
+
+    List<Project> findByManagerEmail(String email);
 }

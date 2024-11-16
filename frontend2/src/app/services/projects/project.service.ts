@@ -26,6 +26,11 @@ export class ProjectService {
   deleteProjectBytitle(title:String){
     return this.http.delete(`${this.baseUrl}project/title/${title}`);
   }
+
+  getAllprojectsByManagerEmail(email:String):Observable<any>{
+    return this.http.get(`${this.baseUrl}project/manager/${email}`);
+
+  }
   
 
 

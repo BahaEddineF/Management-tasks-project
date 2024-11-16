@@ -21,7 +21,7 @@ export class ProjectsComponent implements AfterViewInit{
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private _dialog: MatDialog,private projectService: ProjectService,){}
+  constructor(private _dialog: MatDialog,private projectService: ProjectService){}
 
   ngAfterViewInit(): void {
     this.getProjectList();
