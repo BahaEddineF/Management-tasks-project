@@ -32,7 +32,18 @@ export class UsersComponent implements AfterViewInit {
     this.getUsersList();
 }
 
-
+getUsersList(){
+  this.userservice.getusersList().subscribe({
+    next: (res) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.sort = this.sort
+      this.dataSource.paginator = this.paginator
+    },
+    error: (err) =>{
+      console.log(err)
+    }
+  })
+}
 
   openAddEmpForm(){
     const dialogRef = this._dialog.open(EditAddAdminComponent);
@@ -57,18 +68,7 @@ export class UsersComponent implements AfterViewInit {
   }
 
 
-  getUsersList(){
-    this.userservice.getusersList().subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort
-        this.dataSource.paginator = this.paginator
-      },
-      error: (err) =>{
-        console.log(err)
-      }
-    })
-  }
+
 
   deleteUserByEmail(email: string) {
     this.userservice.deleteUser(email).subscribe({

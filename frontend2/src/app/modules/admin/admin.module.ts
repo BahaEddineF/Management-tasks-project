@@ -27,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { EditAddProjectComponent } from './components/edit-add-project/edit-add-project.component';
 
 
 
@@ -43,6 +44,7 @@ import {MatListModule} from '@angular/material/list';
     HomeComponent,
     EditAddAdminComponent,
     CustomSidenavComponent,
+    EditAddProjectComponent,
     
     
     
