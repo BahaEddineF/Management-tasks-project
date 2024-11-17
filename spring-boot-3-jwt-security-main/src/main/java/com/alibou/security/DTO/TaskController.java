@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/task")
@@ -16,17 +17,10 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
-    
     @PostMapping("/save")
     public ResponseEntity<TaskRequestDTO> save2(@RequestBody Task task){
-        try{
-            TaskRequestDTO dto = TaskRequestDTO.mapper(taskService.createTask(task));
-            System.out.println(dto);
-            return new ResponseEntity<TaskRequestDTO>(dto, HttpStatus.CREATED);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.createTask(task))), HttpStatus.CREATED);
+
     }
 
     @GetMapping("/all")
@@ -34,7 +28,7 @@ public class TaskController {
         List<Task> tasks = taskService.getAllTasks();
         List<TaskRequestDTO> dtos = new ArrayList<>();
         for(Task task : tasks){
-            dtos.add(TaskRequestDTO.mapper(task));
+            dtos.add(TaskRequestDTO.mapper(Optional.ofNullable(task)));
         }
         if(tasks.isEmpty()){
             return new ResponseEntity<List<TaskRequestDTO>>(HttpStatus.NO_CONTENT);
@@ -45,28 +39,28 @@ public class TaskController {
 
     @GetMapping("{id}")
     public  ResponseEntity<TaskRequestDTO> getById(@PathVariable Integer id){
-        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(taskService.getTaskById(id)),HttpStatus.OK);
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.getTaskById(id))),HttpStatus.OK);
     }
 
     @GetMapping("/title/{title}")
     public  ResponseEntity<TaskRequestDTO> getByTitle(@PathVariable String title){
-        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(taskService.getTaskByTitle(title)),HttpStatus.OK);
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.getTaskByTitle(title))),HttpStatus.OK);
     }
 
 
 
     @PutMapping("{id}")
     public  ResponseEntity<TaskRequestDTO> updateById(@PathVariable Integer id,@RequestBody Task task){
-        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(taskService.updateTaskById(id,task)),HttpStatus.OK);
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.updateTaskById(id, task))),HttpStatus.OK);
     }
 
     @PutMapping("/title/{title}")
     public  ResponseEntity<TaskRequestDTO> updateByTitle(@PathVariable String title,@RequestBody Task task){
-        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(taskService.updateTaskByTitle(title,task)),HttpStatus.OK);
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.updateTaskByTitle(title, task))),HttpStatus.OK);
     }
     @PutMapping("/title/foremployee/{title}")
     public  ResponseEntity<TaskRequestDTO> updateByTitleForManager(@PathVariable String title,@RequestBody Task task){
-        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(taskService.updateTaskByTitleForEmployee(title,task)),HttpStatus.OK);
+        return new ResponseEntity<TaskRequestDTO>(TaskRequestDTO.mapper(Optional.ofNullable(taskService.updateTaskByTitleForEmployee(title, task))),HttpStatus.OK);
     }
 
 
@@ -90,7 +84,7 @@ public class TaskController {
         List<Task> tasks= taskService.getTasksByEmployeeEmail(employeeEmail);
         List<TaskRequestDTO> dtos = new ArrayList<>();
         for(Task task : tasks){
-            dtos.add(TaskRequestDTO.mapper(task));
+            dtos.add(TaskRequestDTO.mapper(Optional.ofNullable(task)));
         }
         if(tasks.isEmpty()){
             return new ResponseEntity<List<TaskRequestDTO>>(HttpStatus.NO_CONTENT);
@@ -104,7 +98,7 @@ public class TaskController {
         List<Task> tasks= taskService.getTasksByProjectTitle(projectTitle);
         List<TaskRequestDTO> dtos = new ArrayList<>();
         for(Task task : tasks){
-            dtos.add(TaskRequestDTO.mapper(task));
+            dtos.add(TaskRequestDTO.mapper(Optional.ofNullable(task)));
         }
         if(tasks.isEmpty()){
             return new ResponseEntity<List<TaskRequestDTO>>(HttpStatus.NO_CONTENT);

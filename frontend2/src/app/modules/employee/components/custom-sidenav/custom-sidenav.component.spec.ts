@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FooterComponent } from './footer.component';
+import { CustomSidenavComponent } from './custom-sidenav.component';
 
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('CustomSidenavComponent', () => {
+  let component: CustomSidenavComponent;
+  let fixture: ComponentFixture<CustomSidenavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FooterComponent]
+      declarations: [CustomSidenavComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(CustomSidenavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

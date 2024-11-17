@@ -1,3 +1,16 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<mat-toolbar class="mat-elevation-z3">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())">
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container>
+
+        <mat-sidenav class="mat-elevation-z8" opened mode="side" [style.width]="sidenavWidth()">
+            <app-custom-sidenav3 [collapsed]="collapsed()"/>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()" >
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+</mat-sidenav-container>

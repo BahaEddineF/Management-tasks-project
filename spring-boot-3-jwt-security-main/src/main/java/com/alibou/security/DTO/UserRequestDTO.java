@@ -27,14 +27,19 @@ public class UserRequestDTO {
     private Title title;
 
 
-    public static UserRequestDTO mapper(Optional<User> user){
+    public static UserRequestDTO mapper(Optional<User> user) {
+        if (user.isEmpty()) {
+            return null; // Or throw an exception based on your requirements
+        }
+
         UserRequestDTO userRequestDTO = new UserRequestDTO();
-        userRequestDTO.setId(user.get().getId());
-        userRequestDTO.setFirstname(user.get().getFirstname());
-        userRequestDTO.setLastname(user.get().getLastname());
-        userRequestDTO.setEmail(user.get().getEmail());
-        userRequestDTO.setRole(user.get().getRole());
-        userRequestDTO.setPhone(user.get().getPhone());
+        User userValue = user.get();
+        userRequestDTO.setId(userValue.getId());
+        userRequestDTO.setFirstname(userValue.getFirstname());
+        userRequestDTO.setLastname(userValue.getLastname());
+        userRequestDTO.setEmail(userValue.getEmail());
+        userRequestDTO.setRole(userValue.getRole());
+        userRequestDTO.setPhone(userValue.getPhone());
         return userRequestDTO;
     }
 

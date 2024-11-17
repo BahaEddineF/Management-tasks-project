@@ -1,0 +1,72 @@
+<div mat-dialog-title>
+    <h6>Change Status</h6>
+</div>
+
+<!-- Create Project Form -->
+<form [formGroup]="taskForm" (ngSubmit)="OnFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text" placeholder="Ex. John@doa.yaml" formControlName="title" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" placeholder="Ex. Project Description" formControlName="description" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput type="date" formControlName="start_date" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input matInput type="date" formControlName="end_date" readonly>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" >
+                        <mat-option value="CANCELED">CANCELED</mat-option>
+                        <mat-option value="IN_PROCESS">IN_PROCESS</mat-option>
+                        <mat-option value="READY">READY</mat-option>
+                        <mat-option value="FINISHED">FINISHED</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="submitted && taskForm.get('status')?.hasError('required')">
+                        Status is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+
+
+            <!-- <div class="col-5">
+                <mat-form-field appearance="outline">
+                    <mat-label>Manager</mat-label>
+                    <mat-select formControlName="manager" [(value)]="currentManager">
+                        <mat-option *ngFor="let manager of managers" [value]="manager">
+                            {{ manager.firstname }} {{ manager.lastname }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div> -->
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" class="save" type="submit">Save</button>
+    </div>
+</form>

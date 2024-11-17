@@ -26,7 +26,6 @@ export class EditStatusComponent {
   constructor(private _fb: FormBuilder,
     private dialogRef: MatDialogRef<EditAddProjectComponent>,
     private projectService:ProjectService,
-    private managerService:ManagerService,
     @Inject(MAT_DIALOG_DATA) public data: any ){
 
       this.projectForm = this._fb.group(

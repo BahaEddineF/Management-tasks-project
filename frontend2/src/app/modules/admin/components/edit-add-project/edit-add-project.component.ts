@@ -86,14 +86,7 @@ export class EditAddProjectComponent implements OnInit {
           console.log(this.projectForm.value)
         }
       }
-    
     }
-
-
-
-
-
-
 
 
 }

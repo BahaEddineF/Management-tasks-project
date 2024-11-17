@@ -1,7 +1,7 @@
 package com.alibou.security.DTO;
 
-import com.alibou.security.project.Project;
 import com.alibou.security.status.Status;
+import com.alibou.security.task.ProjectRequestDTO;
 import com.alibou.security.task.Task;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,17 +26,21 @@ public class TaskRequestDTO {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public static TaskRequestDTO mapper(Task task){
-        TaskRequestDTO dto = new TaskRequestDTO();
-        dto.setId(task.getId());
-        dto.setTitle(task.getTitle());
-        dto.setDescription(task.getDescription());
-        dto.setStart_date(task.getStart_date());
-        dto.setEnd_date(task.getEnd_date());
-        dto.setStatus(task.getStatus());
-        dto.setEmployee(UserRequestDTO.mapperEmployee(Optional.ofNullable(task.getEmployee())));
-        dto.setProject(ProjectRequestDTO.mapper(task.getProject()));
+    public static TaskRequestDTO mapper(Optional<Task> task) {
+        if (task.isEmpty()) {
+            return null; // Or throw an exception based on your requirements
+        }
 
+        TaskRequestDTO dto = new TaskRequestDTO();
+        Task taskValue = task.get();
+        dto.setId(taskValue.getId());
+        dto.setTitle(taskValue.getTitle());
+        dto.setDescription(taskValue.getDescription());
+        dto.setStart_date(taskValue.getStart_date());
+        dto.setEnd_date(taskValue.getEnd_date());
+        dto.setStatus(taskValue.getStatus());
+        dto.setEmployee(UserRequestDTO.mapper(Optional.ofNullable(taskValue.getEmployee())));
+        dto.setProject(ProjectRequestDTO.mapper(Optional.ofNullable(taskValue.getProject())));
         return dto;
     }
 }
