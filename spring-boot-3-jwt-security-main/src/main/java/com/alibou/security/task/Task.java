@@ -1,8 +1,8 @@
-package com.alibou.security.project;
+package com.alibou.security.task;
 
-
+import com.alibou.security.project.Project;
 import com.alibou.security.status.Status;
-import com.alibou.security.task.Task;
+import com.alibou.security.user.subclasses.employee.Employee;
 import com.alibou.security.user.subclasses.manager.Manager;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,15 +12,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
-
-public class Project {
+public class Task{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,12 +37,12 @@ public class Project {
     @NotNull
     private Status status;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

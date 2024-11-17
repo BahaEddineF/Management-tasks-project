@@ -14,6 +14,6 @@ import java.util.List;
 @DiscriminatorValue("MANAGER")
 public class Manager extends User {
 
-    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "manager")
     private List<Project> projects;
 }

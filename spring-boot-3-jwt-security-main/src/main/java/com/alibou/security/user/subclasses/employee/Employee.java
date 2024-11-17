@@ -1,16 +1,15 @@
 package com.alibou.security.user.subclasses.employee;
-
+import com.alibou.security.task.Task;
 import com.alibou.security.user.User;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-    @EqualsAndHashCode(callSuper = true)
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
     @AllArgsConstructor
     @NoArgsConstructor
     @Entity
@@ -21,8 +20,8 @@ import lombok.NoArgsConstructor;
         @Enumerated(EnumType.STRING)
         private Title title;
 
-//        @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-//        private List<Task> tasks = new ArrayList<>();
+        @OneToMany(mappedBy = "employee")
+        private List<Task> tasks;
 
 
         public Title getTitle(){

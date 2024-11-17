@@ -1,5 +1,6 @@
 package com.alibou.security.project;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class ProjectService {
         existingProject.setStatus(updatedProject.getStatus());
         return projectRepository.save(existingProject);
     }
-
+    @Transactional
     public Project updateProjectByTitle(String title, Project updatedProject) {
         Project existingProject = projectRepository.findByTitle(title).get();
         existingProject.setTitle(updatedProject.getTitle());
@@ -48,6 +49,7 @@ public class ProjectService {
         existingProject.setStatus(updatedProject.getStatus());
         return projectRepository.save(existingProject);
     }
+    @Transactional
     public Project updateProjectByTitleForManager(String title, Project updatedProject) {
         Project existingProject = projectRepository.findByTitle(title).get();
         existingProject.setStatus(updatedProject.getStatus());
@@ -56,14 +58,15 @@ public class ProjectService {
 
 
 
-
+    @Transactional
     public void deleteProjectById(Integer id){
         projectRepository.deleteById(id);
     }
+    @Transactional
     public void deleteProjectByTitle(String title){
         projectRepository.deleteByTitle(title);
     }
-
+    @Transactional
     public List<Project> getProjectsByManagerEmail(String email) {
         return projectRepository.findByManagerEmail(email);
     }

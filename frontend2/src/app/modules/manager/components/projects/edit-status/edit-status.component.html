@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-    <h6>{{data ? 'Update Project' : 'Save Project'}}</h6>
+    <h6>Change Status</h6>
 </div>
 
 <!-- Create Project Form -->
@@ -9,47 +9,35 @@
             <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>Title</mat-label>
-                    <input matInput type="text" placeholder="Ex. John@doa.yaml" formControlName="title">
-                    <mat-error *ngIf="submitted && projectForm.get('title')?.hasError('required')">
-                        Title is required
-                    </mat-error>
+                    <input matInput type="text" placeholder="Ex. John@doa.yaml" formControlName="title" readonly>
                 </mat-form-field>
             </div>
 
             <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>Description</mat-label>
-                    <input matInput type="text" placeholder="Ex. Project Description" formControlName="description">
-                    <mat-error *ngIf="submitted && projectForm.get('description')?.hasError('required')">
-                        Description is required
-                    </mat-error>
+                    <input matInput type="text" placeholder="Ex. Project Description" formControlName="description" readonly>
                 </mat-form-field>
             </div>
 
             <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>Start Date</mat-label>
-                    <input matInput type="date" formControlName="start_date">
-                    <mat-error *ngIf="submitted && projectForm.get('start_date')?.hasError('required')">
-                        Start date is required
-                    </mat-error>
+                    <input matInput type="date" formControlName="start_date" readonly>
                 </mat-form-field>
             </div>
 
             <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>End Date</mat-label>
-                    <input matInput type="date" formControlName="end_date">
-                    <mat-error *ngIf="submitted && projectForm.get('end_date')?.hasError('required')">
-                        End date is required
-                    </mat-error>
+                    <input matInput type="date" formControlName="end_date" readonly>
                 </mat-form-field>
             </div>
 
             <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>Status</mat-label>
-                    <mat-select formControlName="status">
+                    <mat-select formControlName="status" >
                         <mat-option value="CANCELED">CANCELED</mat-option>
                         <mat-option value="IN_PROCESS">IN_PROCESS</mat-option>
                         <mat-option value="READY">READY</mat-option>
@@ -61,7 +49,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="col-5">
+            <!-- <div class="col-5">
                 <mat-form-field appearance="outline">
                     <mat-label>Manager</mat-label>
                     <mat-select formControlName="manager" [(value)]="currentManager">
@@ -69,11 +57,8 @@
                             {{ manager.firstname }} {{ manager.lastname }}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="submitted && projectForm.get('manager')?.hasError('required')">
-                        Manager is required
-                    </mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
         </div>
     </div>
 

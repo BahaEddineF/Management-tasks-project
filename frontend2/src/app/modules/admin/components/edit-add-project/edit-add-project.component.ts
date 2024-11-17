@@ -12,9 +12,8 @@ import { ManagerService } from '../../../../services/manager/manager.service';
 export class EditAddProjectComponent implements OnInit {
   projectForm: FormGroup;
   managers: any[] = []; // Store fetched managers
-
-  isEmployee: boolean = false;
   submitted: boolean = false; // Flag to check if the form has been submitted
+  currentManager: any;
 
 
   
@@ -22,13 +21,21 @@ export class EditAddProjectComponent implements OnInit {
     this.managerService.getAllManagers().subscribe({
       next: (res) =>{
         this.managers = res
+        if (this.data && this.data.manager) {
+           this.currentManager = this.managers.find(
+            (manager) => manager.id === this.data.manager.id
+          );
+          if (this.currentManager) {
+            this.projectForm.get('manager')?.setValue(this.currentManager.id);
+          }
+        }
       },
       error: (err) =>{
         console.log(err)
       }
     })
     this.projectForm.patchValue(this.data);
-    
+  
   }
 
   constructor(private _fb: FormBuilder,

@@ -22,6 +22,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { AdminRoutingModule } from '../admin/admin-routing.module';
 import { CustomSidenavComponent } from './components/custom-sidenav/custom-sidenav.component';
+import { EditStatusComponent } from './components/projects/edit-status/edit-status.component';
 
 
 
@@ -31,7 +32,8 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
     ProjectsComponent,
     TasksComponent,
     HomeComponent,
-    CustomSidenavComponent
+    CustomSidenavComponent,
+    EditStatusComponent
   ],
   imports: [
     CommonModule,

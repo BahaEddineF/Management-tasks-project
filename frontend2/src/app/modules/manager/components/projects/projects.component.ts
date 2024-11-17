@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { EditStatusComponent } from './edit-status/edit-status.component';
 
 @Component({
   selector: 'app-projects',
@@ -54,8 +55,15 @@ applyFilter(event: Event) {
   }
 }
 
-changeStatus(row: any) {
-  throw new Error('Method not implemented.');
+changeStatus(data :any) {
+    const dialogRef = this._dialog.open(EditStatusComponent,{data});
+    dialogRef.afterClosed().subscribe({
+      next:(val)=> {
+          if(val){
+            this.getProjectList()
+          }
+      },
+    })
   }
   
 

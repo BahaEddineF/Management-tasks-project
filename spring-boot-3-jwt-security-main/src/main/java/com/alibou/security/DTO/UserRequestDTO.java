@@ -37,8 +37,11 @@ public class UserRequestDTO {
         userRequestDTO.setPhone(user.get().getPhone());
         return userRequestDTO;
     }
+
+
     public static UserRequestDTO mapperEmployee(Optional<Employee> user){
         UserRequestDTO userRequestDTO = new UserRequestDTO();
+        userRequestDTO.setId(user.get().getId());
         userRequestDTO.setFirstname(user.get().getFirstname());
         userRequestDTO.setLastname(user.get().getLastname());
         userRequestDTO.setEmail(user.get().getEmail());
