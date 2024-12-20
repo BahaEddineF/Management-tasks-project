@@ -14,4 +14,7 @@ public class ManagerService {
     public List<Manager> getAllManagers(){
         return managerRepository.findAll();
     }
+    public Long countAll() {
+        return managerRepository.count();
+    }
 }

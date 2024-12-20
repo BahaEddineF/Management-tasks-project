@@ -41,7 +41,6 @@
                         <mat-option value="CANCELED">CANCELED</mat-option>
                         <mat-option value="IN_PROCESS">IN_PROCESS</mat-option>
                         <mat-option value="READY">READY</mat-option>
-                        <mat-option value="FINISHED">FINISHED</mat-option>
                     </mat-select>
                     <mat-error *ngIf="submitted && projectForm.get('status')?.hasError('required')">
                         Status is required

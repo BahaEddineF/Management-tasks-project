@@ -4,9 +4,12 @@ import com.alibou.security.task.Task;
 import com.alibou.security.task.TaskRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -75,5 +78,14 @@ public class TaskService {
     }
     public List<Task> getTasksByProjectTitle(String title) {
         return taskRepository.findByProjectTitle(title);
+    }
+
+    public Map<String, Long> getTaskCountByStatus() {
+        List<Object[]> result = taskRepository.countTasksByStatus();
+        return result.stream()
+                .collect(Collectors.toMap(
+                        row -> row[0].toString(), // Convert status (Enum) to String
+                        row -> (Long) row[1]      // Count as Long
+                ));
     }
 }

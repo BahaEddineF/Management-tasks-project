@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -71,5 +73,13 @@ public class ProjectService {
         return projectRepository.findByManagerEmail(email);
     }
 
+    public Map<String, Long> getProjectCountByStatus() {
+        List<Object[]> result = projectRepository.countProjectsByStatus();
+        return result.stream()
+                .collect(Collectors.toMap(
+                        row -> row[0].toString(), // Convert status (Enum) to String
+                        row -> (Long) row[1]      // Count as Long
+                ));
+    }
 
 }
