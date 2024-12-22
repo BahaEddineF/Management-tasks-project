@@ -14,6 +14,10 @@ public class ManagerService {
     public List<Manager> getAllManagers(){
         return managerRepository.findAll();
     }
+
+    public Manager getManagerById(Integer id){
+        return managerRepository.getReferenceById(id);
+    }
     public Long countAll() {
         return managerRepository.count();
     }

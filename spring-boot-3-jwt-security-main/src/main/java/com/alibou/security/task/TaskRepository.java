@@ -3,6 +3,7 @@ package com.alibou.security.task;
 import com.alibou.security.project.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,11 @@ public interface TaskRepository extends JpaRepository<Task,Integer> {
 
     @Query("SELECT t.status, COUNT(t) FROM Task t GROUP BY t.status")
     List<Object[]> countTasksByStatus();
+
+    @Query("SELECT t.status, COUNT(t) FROM Task t JOIN t.project p WHERE p.manager.email = :email GROUP BY t.status")
+    List<Object[]> findTasksByManagerEmailAndCountByStatus(@Param("email") String email);
+
+    @Query("SELECT t.status, COUNT(t) FROM Task t JOIN t.employee e WHERE e.email = :email GROUP BY t.status")
+    List<Object[]> findTasksByEmployeeEmailAndCountByStatus(@Param("email") String email);
+
 }

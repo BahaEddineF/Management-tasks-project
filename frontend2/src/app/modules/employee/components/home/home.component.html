@@ -1,48 +1,65 @@
-<div class="container pt-5 pb-5">
-    <div class="col-12">
-        <div class="d-flex flex-wrap justify-content-between">
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card shadow mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">Admin Component</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+<div class="container my-5">
+  <h1 class="text-center mb-4 fw-bold" style="color: #2C3E50;">Manager Dashboard</h1>
+
+  <!-- Tasks Section -->
+  <section *ngIf="dashboardData?.tasks">
+    <h3 class="text-secondary mb-3"><i class="bi bi-list-task me-2"></i>Tasks</h3>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+      <!-- Total Tasks -->
+      <div class="col">
+        <div class="card h-100 text-white shadow-lg" style="background: linear-gradient(135deg, #34495E, #2C3E50);">
+          <div class="card-body text-center">
+            <i class="bi bi-list-task fs-1 mb-3"></i>
+            <h5 class="card-title">Total Tasks</h5>
+            <p class="card-text display-6">{{ dashboardData.tasks.total }}</p>
+            <p class="card-text">100%</p>
+          </div>
         </div>
+      </div>
+      <!-- Finished Tasks -->
+      <div class="col">
+        <div class="card h-100 text-white shadow-lg" style="background: linear-gradient(135deg, #3498DB, #2980B9);">
+          <div class="card-body text-center">
+            <i class="bi bi-check2-all fs-1 mb-3"></i>
+            <h5 class="card-title">Finished</h5>
+            <p class="card-text display-6">{{ dashboardData.tasks.byStatus?.FINISHED }}</p>
+            <p class="card-text">{{ ((dashboardData.tasks.byStatus?.FINISHED / dashboardData.tasks.total) * 100).toFixed(2) }}%</p>
+          </div>
+        </div>
+      </div>
+      <!-- Ready Tasks -->
+      <div class="col">
+        <div class="card h-100 text-white shadow-lg" style="background: linear-gradient(135deg, #2ECC71, #27AE60);">
+          <div class="card-body text-center">
+            <i class="bi bi-clock-fill fs-1 mb-3"></i>
+            <h5 class="card-title">Ready</h5>
+            <p class="card-text display-6">{{ dashboardData.tasks.byStatus?.READY }}</p>
+            <p class="card-text">{{ ((dashboardData.tasks.byStatus?.READY / dashboardData.tasks.total) * 100).toFixed(2) }}%</p>
+          </div>
+        </div>
+      </div>
+      <!-- In Progress Tasks -->
+      <div class="col">
+        <div class="card h-100 text-white shadow-lg" style="background: linear-gradient(135deg, #F39C12, #E67E22);">
+          <div class="card-body text-center">
+            <i class="bi bi-clock-history fs-1 mb-3"></i>
+            <h5 class="card-title">In Progress</h5>
+            <p class="card-text display-6">{{ dashboardData.tasks.byStatus?.IN_PROCESS }}</p>
+            <p class="card-text">{{ ((dashboardData.tasks.byStatus?.IN_PROCESS / dashboardData.tasks.total) * 100).toFixed(2) }}%</p>
+          </div>
+        </div>
+      </div>
+      <!-- Canceled Tasks -->
+      <div class="col">
+        <div class="card h-100 text-white shadow-lg" style="background: linear-gradient(135deg, #E74C3C, #C0392B);">
+          <div class="card-body text-center">
+            <i class="bi bi-sign-stop-fill fs-1 mb-3"></i>
+            <h5 class="card-title">Canceled</h5>
+            <p class="card-text display-6">{{ dashboardData.tasks.byStatus?.CANCELED }}</p>
+            <p class="card-text">{{ ((dashboardData.tasks.byStatus?.CANCELED / dashboardData.tasks.total) * 100).toFixed(2) }}%</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 </div>

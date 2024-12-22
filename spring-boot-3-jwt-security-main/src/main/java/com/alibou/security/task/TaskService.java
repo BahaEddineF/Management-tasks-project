@@ -88,4 +88,21 @@ public class TaskService {
                         row -> (Long) row[1]      // Count as Long
                 ));
     }
+
+    public Map<String, Long> getTasksByManagerEmailAndCountByStatus(String email) {
+        List<Object[]> result = taskRepository.findTasksByManagerEmailAndCountByStatus(email);
+        return result.stream()
+                .collect(Collectors.toMap(
+                        row -> row[0].toString(), // Convert task status (Enum) to String
+                        row -> (Long) row[1]      // Count as Long
+                ));
+    }
+    public Map<String, Long> getTasksByEmployeeEmailAndCountByStatus(String email) {
+        List<Object[]> result = taskRepository.findTasksByEmployeeEmailAndCountByStatus(email);
+        return result.stream()
+                .collect(Collectors.toMap(
+                        row -> row[0].toString(), // Convert status (Enum) to String
+                        row -> (Long) row[1]      // Count as Long
+                ));
+    }
 }
