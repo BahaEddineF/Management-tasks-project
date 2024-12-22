@@ -62,7 +62,7 @@ public class ProjectController {
     public  ResponseEntity<ProjectRequestDTO> updateByTitle(@PathVariable String title,@RequestBody Project project){
         return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(Optional.ofNullable(projectService.updateProjectByTitle(title, project))),HttpStatus.OK);
     }
-    @PutMapping("/title/foranager/{title}")
+    @PutMapping("/title/formanager/{title}")
     public  ResponseEntity<ProjectRequestDTO> updateByTitleForManager(@PathVariable String title,@RequestBody Project project){
         return new ResponseEntity<ProjectRequestDTO>(ProjectRequestDTO.mapper(Optional.ofNullable(projectService.updateProjectByTitleForManager(title, project))),HttpStatus.OK);
     }

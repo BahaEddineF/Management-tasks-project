@@ -1,6 +1,9 @@
 package com.alibou.security.project;
 
 import com.alibou.security.emailSender.EmailService;
+import com.alibou.security.status.Status;
+import com.alibou.security.user.subclasses.admin.Admin;
+import com.alibou.security.user.subclasses.admin.AdminRepository;
 import com.alibou.security.user.subclasses.manager.Manager;
 import com.alibou.security.user.subclasses.manager.ManagerRepository;
 import com.alibou.security.user.subclasses.manager.ManagerService;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +28,9 @@ public class ProjectService {
     ManagerService managerService;
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    AdminRepository adminRepository;
 
 
     @SneakyThrows
@@ -161,9 +168,23 @@ public class ProjectService {
     }
 
 
+    @SneakyThrows
     @Transactional
     public Project updateProjectByTitleForManager(String title, Project updatedProject) {
         Project existingProject = projectRepository.findByTitle(title).get();
+        Status oldStatus = existingProject.getStatus();
+        Status newStatus = updatedProject.getStatus();
+        if(oldStatus !=newStatus) {
+            List<Admin> admins = adminRepository.findAll();
+            for (Admin admin : admins) {
+                String email = admin.getEmail();
+                String fullname = admin.getFirstname() + " " + admin.getLastname();
+                emailService.notifyAdminThatProjectStatusWasChanged(email, fullname, updatedProject.getTitle(), oldStatus, newStatus);
+            }
+        }
+        existingProject.setStatus(newStatus);
+
+
         existingProject.setStatus(updatedProject.getStatus());
         return projectRepository.save(existingProject);
     }

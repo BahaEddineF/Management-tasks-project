@@ -1,6 +1,7 @@
 package com.alibou.security.emailSender;
 
 import com.alibou.security.project.Project;
+import com.alibou.security.status.Status;
 import com.alibou.security.task.Task;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -103,8 +104,33 @@ public class EmailService {
 
     }
 
-    //region emailstoManager
+    //region adminEmails
+    public void notifyAdminThatProjectStatusWasChanged(String to, String name, String title, Status oldStatus, Status newStatus) throws MessagingException {
+        if (to == null || name == null || title == null) {
+            throw new IllegalArgumentException("Email parameters cannot be null.");
+        }
 
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        Context context = new Context();
+        context.setVariable("name", name);
+        context.setVariable("title", title);
+        context.setVariable("oldStatus", oldStatus);
+        context.setVariable("newStatus", newStatus);
+
+        String htmlContent = templateEngine.process("emails/admin/ProjectStatusChanged", context);
+
+        helper.setTo(to);
+        helper.setFrom("khalil.smairi@tek-up.de");
+        helper.setSubject("Project '" + title + "' status has been changed!");
+        helper.setText(htmlContent, true);
+
+        mailSender.send(message);
+    }
+    //endregion
+
+    //region emails to Manager
     public void sendNewProjectNotificationEmail(String to, String name, Project project) throws MessagingException {
         if (to == null || name == null || project == null) {
             throw new IllegalArgumentException("Email parameters cannot be null.");
@@ -188,6 +214,31 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void notifyManagerThatTaskStatusWasChanged(String to, String name, String title, Status oldStatus, Status newStatus) throws MessagingException {
+        if (to == null || name == null || title == null) {
+            throw new IllegalArgumentException("Email parameters cannot be null.");
+        }
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        Context context = new Context();
+        context.setVariable("name", name);
+        context.setVariable("title", title);
+        context.setVariable("oldStatus", oldStatus);
+        context.setVariable("newStatus", newStatus);
+
+        String htmlContent = templateEngine.process("emails/manager/TaskStatusChanged", context);
+
+        helper.setTo(to);
+        helper.setFrom("khalil.smairi@tek-up.de");
+        helper.setSubject("Task '" + title + "' status has been changed!");
+        helper.setText(htmlContent, true);
+
+        mailSender.send(message);
+    }
+
     //endregion
 
     //region emailstoEmployee
@@ -212,7 +263,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendUpdateTaskNotificationEmail(String to, String name, Task task,String originalTitle) throws MessagingException {
+    public void sendTaskUpdateNotificationEmail(String to, String name, Task task,String originalTitle) throws MessagingException {
         if (to == null || name == null || task == null) {
             throw new IllegalArgumentException("Email parameters cannot be null.");
         }
@@ -233,7 +284,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendNoLongerTheEmployeeEmail(String to, String name, String originalTitle) throws MessagingException {
+    public void sendNoLongerAssignedTaskEmail(String to, String name, String originalTitle) throws MessagingException {
         if (to == null || name == null || originalTitle == null) {
             throw new IllegalArgumentException("Email parameters cannot be null.");
         }
@@ -254,7 +305,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendTaskDeletedEmailToManager(String to, String name, String title) throws MessagingException {
+    public void sendTaskDeletedEmail(String to, String name, String title) throws MessagingException {
         if (to == null || name == null || title == null) {
             throw new IllegalArgumentException("Email parameters cannot be null.");
         }
@@ -265,7 +316,7 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("name", name);
         context.setVariable("title", title);
-        String htmlContent = templateEngine.process("emails/manager/task-deletion", context);
+        String htmlContent = templateEngine.process("emails/employee/task-deletion", context);
 
         helper.setTo(to);
         helper.setFrom("khalil.smairi@tek-up.de");

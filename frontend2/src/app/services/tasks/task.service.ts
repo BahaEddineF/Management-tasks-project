@@ -29,6 +29,9 @@ export class TaskService {
     return this.http.post(`${this.baseUrl}task/save`,data);
   }
 
+  updateTaskBytitleFormployee(data:any,title:String){
+    return this.http.put(`${this.baseUrl}task//title/foremployee/${title}`,data);
+  }
 
   getAllTasksByEmployeeEmail(email:String):Observable<any>{
     return this.http.get(`${this.baseUrl}task/employee/${email}`);

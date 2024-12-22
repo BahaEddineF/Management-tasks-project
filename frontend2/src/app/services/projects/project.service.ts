@@ -22,7 +22,9 @@ export class ProjectService {
   updateProjectBytitle(data:any,title:String){
     return this.http.put(`${this.baseUrl}project/title/${title}`,data);
   }
-
+  updateProjectBytitleForManager(data:any,title:String){
+    return this.http.put(`${this.baseUrl}project/title/formanager/${title}`,data);
+  }
   deleteProjectBytitle(title:String){
     return this.http.delete(`${this.baseUrl}project/title/${title}`);
   }
@@ -31,7 +33,7 @@ export class ProjectService {
     return this.http.get(`${this.baseUrl}project/manager/${email}`);
 
   }
-  
+
 
 
 }

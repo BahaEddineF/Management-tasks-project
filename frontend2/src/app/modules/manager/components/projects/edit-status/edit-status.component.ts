@@ -17,10 +17,10 @@ export class EditStatusComponent {
   currentManager: any;
 
 
-  
+
   ngOnInit(): void {
     this.projectForm.patchValue(this.data);
-  
+
   }
 
   constructor(private _fb: FormBuilder,
@@ -44,7 +44,7 @@ export class EditStatusComponent {
 
     if (this.projectForm.valid){
       this.projectForm.addControl('manager', new FormControl(this.data.manager)); // Adds newField with an empty value
-      this.projectService.updateProjectBytitle(this.projectForm.value,this.data.title).subscribe({
+      this.projectService.updateProjectBytitleForManager(this.projectForm.value,this.data.title).subscribe({
         next: (res) => {
           alert("project updates")
           this.dialogRef.close(true)
@@ -56,6 +56,6 @@ export class EditStatusComponent {
       console.log(this.projectForm.value)
     }
   }
-    
+
 }
 

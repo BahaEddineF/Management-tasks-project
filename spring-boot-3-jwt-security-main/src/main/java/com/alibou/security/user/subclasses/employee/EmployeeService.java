@@ -32,6 +32,10 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee getEmployeeById(Integer id){
+        return employeeRepository.getReferenceById(id);
+    }
+
     public Long countAll() {
         return employeeRepository.count();
     }
