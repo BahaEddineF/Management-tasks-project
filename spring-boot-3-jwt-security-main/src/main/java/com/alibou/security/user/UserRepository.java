@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   void deleteByEmail(String email);
 
-  @Query(value = "SELECT * FROM user", nativeQuery = true)
+  @Query(value = "SELECT id, email, firstname, lastname, phone, profile_image,user_type, title FROM user;", nativeQuery = true)
   List<Object[]> findAllUsersNative();
 
 }

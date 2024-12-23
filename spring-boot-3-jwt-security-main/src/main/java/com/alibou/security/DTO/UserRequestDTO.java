@@ -21,6 +21,7 @@ public class UserRequestDTO {
     private String firstname;
     private String lastname;
     private String phone;
+    private String profile_image;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Enumerated(EnumType.STRING)
@@ -38,6 +39,7 @@ public class UserRequestDTO {
         userRequestDTO.setFirstname(userValue.getFirstname());
         userRequestDTO.setLastname(userValue.getLastname());
         userRequestDTO.setEmail(userValue.getEmail());
+        userRequestDTO.setProfile_image(userValue.getProfileImage());
         userRequestDTO.setRole(userValue.getRole());
         userRequestDTO.setPhone(userValue.getPhone());
         return userRequestDTO;
@@ -50,6 +52,7 @@ public class UserRequestDTO {
         userRequestDTO.setFirstname(user.get().getFirstname());
         userRequestDTO.setLastname(user.get().getLastname());
         userRequestDTO.setEmail(user.get().getEmail());
+        userRequestDTO.setProfile_image(user.get().getProfileImage());
         userRequestDTO.setRole(user.get().getRole());
         userRequestDTO.setPhone(user.get().getPhone());
         userRequestDTO.setTitle(user.get().getTitle());

@@ -1,0 +1,5 @@
+<div>
+  <p>Upload an image for: {{ email }}</p>  <!-- Display the user's email -->
+  <input type="file" (change)="onFileSelect($event)" />
+  <button type="button" (click)="onUpload()">Upload Image</button>
+</div>

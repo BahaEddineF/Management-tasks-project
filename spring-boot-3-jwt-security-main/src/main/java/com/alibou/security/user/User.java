@@ -63,6 +63,7 @@ public class User implements UserDetails {
   private boolean isVerified;
 
   private String verificationCode;
+  private String profileImage; // File name or path for the stored image
 
 
 
