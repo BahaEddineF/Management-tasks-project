@@ -109,4 +109,19 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{email}/profile-image")
+    public ResponseEntity<Resource> getProfileImageByEmail(@PathVariable String email) {
+        try {
+            Resource image = userService.getProfileImageByEmail(email);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG) // Adjust based on your image type
+                    .body(image);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 }

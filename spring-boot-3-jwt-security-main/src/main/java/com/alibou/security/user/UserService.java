@@ -199,4 +199,25 @@ public class UserService {
 
         return resource;
     }
+
+    public Resource getProfileImageByEmail(String email) throws Exception {
+        // Fetch the user by email
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new Exception("User not found");
+        }
+
+        // Get the file name from the user's profile image field
+        String fileName = userOptional.get().getProfileImage();
+
+        // Construct the file path
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (resource.exists() && resource.isReadable()) {
+            return resource;
+        } else {
+            throw new Exception("File not found or not readable");
+        }
+    }
 }
