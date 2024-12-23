@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 
 
 
@@ -41,12 +42,13 @@ import {MatListModule} from '@angular/material/list';
     EditAddAdminComponent,
     CustomSidenavComponent,
     EditAddProjectComponent,
-    
-    
-    
+    ImageUploadComponent
 
-    
-    
+
+
+
+
+
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,7 @@ import {MatListModule} from '@angular/material/list';
     MatPaginatorModule,
     MatSidenavModule,
     MatListModule
-    
+
 
   ]
 })
