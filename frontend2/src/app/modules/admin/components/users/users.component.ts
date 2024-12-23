@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { ImageUploadComponent } from '../image-upload/image-upload.component';
 
 
 
@@ -91,5 +92,20 @@ getUsersList(){
     }
   }
 
+
+  openImageUploadDialog(email: string) {
+    const dialogRef = this._dialog.open(ImageUploadComponent, {
+      data: { email }  // Pass the email to the dialog component
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (imageUrl) => {
+        if (imageUrl) {
+          console.log('Image uploaded successfully:', imageUrl);
+          // You can handle the uploaded image URL here
+        }
+      }
+    });
+  }
 
 }
