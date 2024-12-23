@@ -8,8 +8,24 @@ import { MenuItem } from '../../../admin/components/custom-sidenav/custom-sidena
   styleUrl: './custom-sidenav.component.scss'
 })
 export class CustomSidenavComponent {
-  constructor(private authService:AuthService){}
-  sideNavCollapsed = signal(false)
+  profileImageUrl = signal<string | null>(null);
+  headerTitle = signal<string>('Developer'); // Default value for title
+  userName = signal<string>('Your Name'); // Default value for user name
+  constructor(private authService: AuthService) {
+    const userEmail = localStorage.getItem('user_email');
+
+    if (userEmail) {
+      this.profileImageUrl.set(`http://localhost:4200/api/v1/users/${userEmail}/profile-image`);
+    }
+    this.userName.set(userEmail || 'Your Name');
+    this.headerTitle.set(localStorage.getItem('user_role') || 'DEVELOPER')
+
+  }
+
+  // Update the signal to default image when an error occurs
+  onImageError() {
+    this.profileImageUrl.set('/assets/img/pic.jpg');
+  }  sideNavCollapsed = signal(false)
   @Input() set collapsed(val: boolean){
     this.sideNavCollapsed.set(val)
   }
@@ -29,7 +45,7 @@ export class CustomSidenavComponent {
       label: "Logout",
       route: "Logout",
     },])
-  
+
   profilePicSize = computed(() => this.sideNavCollapsed() ? '32' : '100');
 
 

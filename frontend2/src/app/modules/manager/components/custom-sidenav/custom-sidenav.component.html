@@ -1,13 +1,16 @@
 <div class="sidenav-header">
-    <img
-     [width]="profilePicSize()"
-     [height]="profilePicSize()"
-     src="/assets/img/pic.jpg"
-     />
-     <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-        <h2>Developer</h2>
-        <p>Your Name</p>
-    </div>
+  <img
+    [width]="profilePicSize()"
+    [height]="profilePicSize()"
+    [src]="profileImageUrl() || '/assets/img/pic.jpg'"
+    alt="Profile Image"
+    (error)="onImageError()"
+  />
+
+  <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
+    <h2>{{ headerTitle() }}</h2> <!-- Bind headerTitle -->
+    <p>{{ userName() }}</p> <!-- Bind userName -->
+  </div>
 </div>
 
 <mat-nav-list>
