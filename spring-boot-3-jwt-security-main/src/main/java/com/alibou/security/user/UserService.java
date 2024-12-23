@@ -4,21 +4,38 @@ import com.alibou.security.DTO.UserRequestDTO;
 import com.alibou.security.user.subclasses.employee.Title;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor
 
 public class UserService {
+
+
+    private static final String UPLOAD_DIR = "uploads/profile-images/";
+
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -69,16 +86,17 @@ public class UserService {
     public List<UserRequestDTO> findAllWithQuery() { //Used to query all data even the title of the employe
         // Fetch all users using native query
         List<Object[]> users = userRepository.findAllUsersNative();
-
         // Map Object[] to UserDTO
         return users.stream()
-                .map(user -> new UserRequestDTO((Integer) user[1],
+                .map(user -> new UserRequestDTO((Integer) user[0],
+                                                (String) user[1],
                                                 (String) user[2],
                                                 (String) user[3],
+                                                (String) user[4],
                                                 (String) user[5],
-                                                (String) user[7],
-                                                Role.valueOf((String) user[0]) ,
-                                                user[9] != null ? Title.valueOf((String) user[9]) : null))
+                                                Role.valueOf((String) user[6]) ,
+                                                user[7] != null ? Title.valueOf((String) user[7]) : null))
+
                 .collect(Collectors.toList());
     }
 
@@ -143,5 +161,42 @@ public class UserService {
         }
         return false;
 
+    }
+
+
+    public String uploadProfileImage(Integer userId, MultipartFile file) throws IOException {
+        // Validate user
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Validate file
+        if (file.isEmpty() || !file.getContentType().startsWith("image/")) {
+            throw new RuntimeException("Invalid file type");
+        }
+
+        // Generate unique file name
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+
+        // Ensure directories exist
+        Files.createDirectories(filePath.getParent());
+        Files.write(filePath, file.getBytes());
+
+        // Save file name in the user entity
+        user.setProfileImage(fileName);
+        userRepository.save(user);
+
+        return fileName;
+    }
+
+    public Resource getProfileImage(String fileName) throws MalformedURLException {
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (!resource.exists() || !resource.isReadable()) {
+            throw new RuntimeException("File not found");
+        }
+
+        return resource;
     }
 }
