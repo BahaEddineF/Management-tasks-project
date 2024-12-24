@@ -34,7 +34,7 @@ import java.nio.file.Paths;
 public class UserService {
 
 
-    private static final String UPLOAD_DIR = "uploads/profile-images/";
+    private static final String UPLOAD_DIR = "spring-boot-3-jwt-security-main/src/main/resources/uploads/profile-images/";
 
 
     private final PasswordEncoder passwordEncoder;
@@ -164,9 +164,9 @@ public class UserService {
     }
 
 
-    public String uploadProfileImage(Integer userId, MultipartFile file) throws IOException {
+    public String uploadProfileImage(String email, MultipartFile file) throws IOException {
         // Validate user
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Validate file

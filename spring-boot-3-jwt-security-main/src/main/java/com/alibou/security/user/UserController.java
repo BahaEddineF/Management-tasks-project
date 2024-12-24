@@ -87,12 +87,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}/upload")
+    @PostMapping("/{email}/upload")
     public ResponseEntity<String> uploadProfileImage(
-            @PathVariable Integer userId,
+            @PathVariable String email,
             @RequestParam("file") MultipartFile file) {
         try {
-            String fileName = userService.uploadProfileImage(userId, file);
+            String fileName = userService.uploadProfileImage(email, file);
             return ResponseEntity.ok(fileName);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
