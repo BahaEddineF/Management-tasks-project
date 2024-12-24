@@ -40,6 +40,9 @@ public class SecurityConfiguration {
             "/api/v1/**",
             "/api/v1/auth/**",
             "/api/v1/users/**",
+            "/api/v1/project/**",
+            "/api/v1/files/**",
+            "/files/**",
             "/api/v1/employees/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -32,6 +32,28 @@ export class ProjectService {
   getAllprojectsByManagerEmail(email:String):Observable<any>{
     return this.http.get(`${this.baseUrl}project/manager/${email}`);
 
+  }
+
+  upload(file: File | undefined, id: string): Observable<HttpEvent<any>> {
+    if (!file) {
+      throw new Error('No file selected');
+    }
+
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name); // Append the file to the form data
+
+    const url = `${this.baseUrl}project/upload/${id}`; // Format the URL with the ID
+    const req = new HttpRequest('POST', url, formData, {
+      headers: new HttpHeaders(),
+      responseType: 'json',
+    });
+
+    return this.http.request(req);
+  }
+
+
+  getFilesByProjectId(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}project/filess/${id}`);
   }
 
 
