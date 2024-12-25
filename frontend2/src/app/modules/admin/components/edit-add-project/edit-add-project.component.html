@@ -74,6 +74,19 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+          <!-- File Upload Section -->
+          <div class="col-12">
+            <label>Upload File</label>
+            <input type="file" (change)="selectFile($event)" />
+            <button mat-raised-button color="primary" class="ml-2"  (click)="upload()">
+              Upload
+            </button>
+          </div>
+
+          <!-- Display success or error messages -->
+          <div class="col-12 mt-2" *ngIf="message">
+            <div class="alert alert-secondary">{{ message }}</div>
+          </div>
         </div>
     </div>
 

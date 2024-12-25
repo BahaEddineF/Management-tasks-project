@@ -1,6 +1,7 @@
 package com.alibou.security.project;
 
 
+import com.alibou.security.file.FileDB;
 import com.alibou.security.status.Status;
 import com.alibou.security.task.Task;
 import com.alibou.security.user.subclasses.manager.Manager;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +44,8 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks;
-
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<FileDB> files= new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "manager_id")

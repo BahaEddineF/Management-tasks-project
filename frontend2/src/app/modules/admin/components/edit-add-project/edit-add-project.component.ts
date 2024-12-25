@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../../services/projects/project.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ManagerService } from '../../../../services/manager/manager.service';
+import {Observable} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-add-project',
@@ -14,9 +16,11 @@ export class EditAddProjectComponent implements OnInit {
   managers: any[] = []; // Store fetched managers
   submitted: boolean = false; // Flag to check if the form has been submitted
   currentManager: any;
+  currentFile?: File;
+  message = '';
+  fileInfos?: Observable<any>;
 
 
-  
   ngOnInit(): void {
     this.managerService.getAllManagers().subscribe({
       next: (res) =>{
@@ -35,7 +39,7 @@ export class EditAddProjectComponent implements OnInit {
       }
     })
     this.projectForm.patchValue(this.data);
-  
+
   }
 
   constructor(private _fb: FormBuilder,
@@ -87,6 +91,33 @@ export class EditAddProjectComponent implements OnInit {
         }
       }
     }
+  selectFile(event: any): void {
+    this.message = '';
+    this.currentFile = event.target.files.item(0);
+  }
+  upload(): void {
+    if (this.currentFile) {
+      // Assuming `this.data.id` contains the ID you're trying to use in the URL
+      const id = this.data.id; // Ensure that this is the correct property
+
+      // Make sure `this.projectService.upload()` is using the correct URL format
+      this.projectService.upload(this.currentFile, id).subscribe({
+        next: (event: any) => {
+          if (event instanceof HttpResponse) {
+            this.message = event.body.message || 'File uploaded successfully!';
+            console.log(this.message);
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.message = err.error?.message || 'Could not upload the file!';
+        },
+        complete: () => {
+          this.currentFile = undefined;
+        },
+      });
+    }
+  }
 
 
 }
