@@ -21,6 +21,26 @@ export class EditAddProjectComponent implements OnInit {
   fileInfos?: Observable<any>;
 
 
+  constructor(private _fb: FormBuilder,
+    private dialogRef: MatDialogRef<EditAddProjectComponent>,
+    private projectService:ProjectService,
+    private managerService:ManagerService,
+    @Inject(MAT_DIALOG_DATA) public data: any ){
+
+      this.projectForm = this._fb.group(
+        {
+          title: ['', Validators.required],
+          description: ['', Validators.required],
+          start_date: ['', Validators.required],
+          end_date: ['', Validators.required],
+          status: ['', Validators.required],
+          manager: [null, Validators.required] // Optional
+
+        }
+      );
+    }
+
+
   ngOnInit(): void {
     this.managerService.getAllManagers().subscribe({
       next: (res) =>{
@@ -42,59 +62,44 @@ export class EditAddProjectComponent implements OnInit {
 
   }
 
-  constructor(private _fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditAddProjectComponent>,
-    private projectService:ProjectService,
-    private managerService:ManagerService,
-    @Inject(MAT_DIALOG_DATA) public data: any ){
 
-      this.projectForm = this._fb.group(
-        {
-          title: ['', Validators.required],
-          description: ['', Validators.required],
-          start_date: ['', Validators.required],
-          end_date: ['', Validators.required],
-          status: ['', Validators.required],
-          manager: [null, Validators.required] // Optional
+  OnFormSubmit() {
+    if (!this.data){
+      if (this.projectForm.valid){
+        // console.log(this.projectForm.value);
+        this.projectService.addProject(this.projectForm.value).subscribe({
+          next: (res) =>{
+            alert("project Added Successfully")
+            this.dialogRef.close(true)
 
-        }
-      );
-    }
-
-    OnFormSubmit() {
-      if (!this.data){
-        if (this.projectForm.valid){
-          // console.log(this.projectForm.value);
-          this.projectService.addProject(this.projectForm.value).subscribe({
-            next: (res) =>{
-              alert("project Added Successfully")
-              this.dialogRef.close(true)
-
-            },
-            error : (err) => {
-              alert(err.error.message)
-            }
-          })
-        }
-      }else{
-        if (this.projectForm.valid){
-          this.projectService.updateProjectBytitle(this.projectForm.value,this.data.title).subscribe({
-            next: (res) => {
-              alert("project updates")
-              this.dialogRef.close(true)
-            },
-            error: (err) =>{
-              console.log(err.error.message)
-            }
-          })
-          console.log(this.projectForm.value)
-        }
+          },
+          error : (err) => {
+            alert(err.error.message)
+          }
+        })
+      }
+    }else{
+      if (this.projectForm.valid){
+        this.projectService.updateProjectBytitle(this.projectForm.value,this.data.title).subscribe({
+          next: (res) => {
+            alert("project updated successfully")
+            this.dialogRef.close(true)
+          },
+          error: (err) =>{
+            console.log(err.error.message)
+          }
+        })
+        console.log(this.projectForm.value)
       }
     }
+  }
+
+
   selectFile(event: any): void {
     this.message = '';
     this.currentFile = event.target.files.item(0);
   }
+
   upload(): void {
     if (this.currentFile) {
       // Assuming `this.data.id` contains the ID you're trying to use in the URL

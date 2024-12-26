@@ -42,6 +42,22 @@
             <td mat-cell *matCellDef="let row"> {{row.project.title}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="files">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Files</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button (click)="toggleFiles(row.id)">
+                {{ expandedTask === row.id ? 'Hide Files' : 'Show Files' }}
+              </button>
+              <div *ngIf="expandedTask === row.id">
+                <ul>
+                  <li *ngFor="let file of filesMap[row.id]">
+                    <a [href]="file.url">{{ file.name }}</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="action" class="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
             <td mat-cell *matCellDef="let row">  

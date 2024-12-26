@@ -81,7 +81,7 @@ public class GlobalExceptionHandler {
     // New exception handler for IllegalArgumentException
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<CustomErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
-        String errorMessage = "Password Cannot Be null"; // The message will be 'rawPassword cannot be null'
+        String errorMessage = "Check Identifier Type"; // The message will be 'rawPassword cannot be null'
 
         CustomErrorResponse errorResponse = new CustomErrorResponse(
                 LocalDateTime.now(),

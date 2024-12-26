@@ -97,7 +97,7 @@ getUsersList(){
     const dialogRef = this._dialog.open(ImageUploadComponent, {
       data: { email }  // Pass the email to the dialog component
     });
-  
+
     dialogRef.afterClosed().subscribe({
       next: (imageUrl) => {
         if (imageUrl) {

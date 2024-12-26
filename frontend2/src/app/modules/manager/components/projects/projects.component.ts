@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { EditStatusComponent } from './edit-status/edit-status.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -13,8 +14,11 @@ import { EditStatusComponent } from './edit-status/edit-status.component';
 })
 export class ProjectsComponent implements AfterViewInit{
 
-  displayedColumns: string[] = ['title' , 'start_date' , 'end_date' , 'status', 'action'];
+  displayedColumns: string[] = ['title' , 'start_date' , 'end_date' , 'files' , 'status', 'action'];
   dataSource = new MatTableDataSource<any>;
+    fileInfos?: Observable<any>;
+    filesMap: { [projectId: number]: any[] } = {}; // Map project ID to files
+    expandedProjectId: number | null = null;
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -64,6 +68,27 @@ changeStatus(data :any) {
           }
       },
     })
+  }
+
+  toggleFiles(projectId: number) {
+    if (this.expandedProjectId === projectId) {
+      // Collapse if already expanded
+      this.expandedProjectId = null;
+    } else {
+      // Expand and fetch files
+      this.expandedProjectId = projectId;
+      if (!this.filesMap[projectId]) {
+        this.projectService.getFilesByProjectId(projectId).subscribe({
+          next: (files) => {
+            this.filesMap[projectId] = files;
+            console.log(files);
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
+      }
+    }
   }
   
 

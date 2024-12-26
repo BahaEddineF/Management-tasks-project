@@ -4,7 +4,7 @@ import com.alibou.security.file.FileDB;
 import com.alibou.security.file.FileStrorageService;
 import com.alibou.security.file.message.ResponseFile;
 import com.alibou.security.file.message.ResponseMessage;
-import com.alibou.security.task.ProjectRequestDTO;
+import com.alibou.security.DTO.ProjectRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,7 +102,7 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
-    @GetMapping("/filess/{id}")
+    @GetMapping("/files/{id}")
     public ResponseEntity<List<ResponseFile>> getListFiles(@PathVariable Integer id) {
         // Retrieve the project by ID
         Project project = projectService.getProjectById(id);

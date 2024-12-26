@@ -1,7 +1,6 @@
 package com.alibou.security.DTO;
 
 import com.alibou.security.status.Status;
-import com.alibou.security.task.ProjectRequestDTO;
 import com.alibou.security.task.Task;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

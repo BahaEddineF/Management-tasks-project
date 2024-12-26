@@ -53,7 +53,7 @@ export class ProjectService {
 
 
   getFilesByProjectId(id:number): Observable<any> {
-    return this.http.get(`${this.baseUrl}project/filess/${id}`);
+    return this.http.get(`${this.baseUrl}project/files/${id}`);
   }
 
 

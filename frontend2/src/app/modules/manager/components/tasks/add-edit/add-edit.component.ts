@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../../../services/projects/project.service';
 import { EmployeeService } from '../../../../../services/employees/employee.service';
 import { TaskService } from '../../../../../services/tasks/task.service';
+import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit',
@@ -17,6 +19,11 @@ export class AddEditComponent  implements OnInit{
   submitted: boolean = false; // Flag to check if the form has been submitted
   currentEmployee: any;
   currentProject: any;
+
+  currentFile?: File;
+  message = '';
+  fileInfos?: Observable<any>;
+  
 
 
   constructor(private _fb: FormBuilder,
@@ -89,7 +96,7 @@ export class AddEditComponent  implements OnInit{
           // console.log(this.projectForm.value);
           this.taskService.addTask(this.tasktForm.value).subscribe({
             next: (res) =>{
-              alert("project Added Successfully")
+              alert("Task Added Successfully")
               this.dialogRef.close(true)
 
             },
@@ -102,7 +109,7 @@ export class AddEditComponent  implements OnInit{
         if (this.tasktForm.valid){
           this.taskService.updateTaskBytitle(this.tasktForm.value,this.data.title).subscribe({
             next: (res) => {
-              alert("project updates")
+              alert("Task updated")
               this.dialogRef.close(true)
             },
             error: (err) =>{
@@ -114,4 +121,32 @@ export class AddEditComponent  implements OnInit{
       }
     }
 
+    selectFile(event: any): void {
+      this.message = '';
+      this.currentFile = event.target.files.item(0);
+    }
+
+      upload(): void {
+        if (this.currentFile) {
+          // Assuming `this.data.id` contains the ID you're trying to use in the URL
+          const id = this.data.id; // Ensure that this is the correct property
+    
+          // Make sure `this.projectService.upload()` is using the correct URL format
+          this.taskService.upload(this.currentFile, id).subscribe({
+            next: (event: any) => {
+              if (event instanceof HttpResponse) {
+                this.message = event.body.message || 'File uploaded successfully!';
+                console.log(this.message);
+              }
+            },
+            error: (err: any) => {
+              console.log(err);
+              this.message = err.error?.message || 'Could not upload the file!';
+            },
+            complete: () => {
+              this.currentFile = undefined;
+            },
+          });
+        }
+      }
 }

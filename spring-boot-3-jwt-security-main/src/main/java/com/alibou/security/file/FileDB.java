@@ -1,15 +1,18 @@
 package com.alibou.security.file;
 
 import com.alibou.security.project.Project;
+import com.alibou.security.task.Task;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
 @Entity
-
 public class FileDB {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -24,10 +27,13 @@ public class FileDB {
     @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] data;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = true)
+    private Project project;
 
     @ManyToOne
-    @JoinColumn(name = "file_id")
-    private Project project ;
+    @JoinColumn(name = "task_id", nullable = true)
+    private Task task;
 
     public FileDB() {
     }
@@ -38,38 +44,4 @@ public class FileDB {
         this.data = data;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-    public void setProject(Project project) {
-        this.project = project;
-    }
 }

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../../../../services/tasks/task.service';
 import { EditStatusComponent } from './edit-status/edit-status.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -13,8 +14,11 @@ import { EditStatusComponent } from './edit-status/edit-status.component';
 })
 export class TasksComponent {
 
-  displayedColumns: string[] = ['title' , 'start_date' , 'end_date' , 'status', 'project', 'action'];
+  displayedColumns: string[] = ['title' , 'start_date' , 'end_date' , 'status', 'project', 'files','action'];
   dataSource = new MatTableDataSource<any>;
+  fileInfos?: Observable<any>;
+  filesMap: { [projectId: number]: any[] } = {}; // Map project ID to files
+  expandedTask: number | null = null;  
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -62,6 +66,25 @@ changeStatus(data :any) {
     },
   })
 }
-
+toggleFiles(taskId: number) {
+  if (this.expandedTask === taskId) {
+    // Collapse if already expanded
+    this.expandedTask = null;
+  } else {
+    // Expand and fetch files
+    this.expandedTask = taskId;
+    if (!this.filesMap[taskId]) {
+      this.taskService.getFilesByProjectId(taskId).subscribe({
+        next: (files) => {
+          this.filesMap[taskId] = files;
+          console.log(files);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    }
+  }
+}
 
 }

@@ -45,6 +45,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> manager </th>
             <td mat-cell *matCellDef="let row"> {{row.manager.firstname}} {{row.manager.lastname}}</td>
           </ng-container>
+
           <ng-container matColumnDef="files">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Files</th>
             <td mat-cell *matCellDef="let row">
@@ -60,6 +61,7 @@
               </div>
             </td>
           </ng-container>
+          
           <ng-container matColumnDef="action" class="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
             <td mat-cell *matCellDef="let row">
