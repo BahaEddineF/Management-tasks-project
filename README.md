@@ -1,5 +1,8 @@
 # 🗂️ Task Management Project
 
+
+![image (2)](https://github.com/user-attachments/assets/0cfa9287-a09c-4fd2-9a0b-80bdefbdad02)
+ 
 A full-stack web application for managing tasks and projects efficiently. Built using **Angular** for the frontend and **Spring Boot** for the backend, with DevOps practices using **GitLab CI/CD**, **Docker**, and **Docker Compose**.
 
 ---
